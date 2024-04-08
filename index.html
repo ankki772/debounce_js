@@ -1,40 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <title></title>
     <title>Debouncing in Javascript</title>
-</head>
-<body>
-
+  </head>
+  <body>
     <div>
-        <input id="search" type="search" />
+      <input id="search" type="search" />
     </div>
 
-    
-<script>
+    <script>
+      function debounce(callback, delay) {
+        let timer;
+        return function (...args) {
+          console.log(args, this); // this here points to input tag
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            callback.apply(this, args); // or callback(...args)
+          }, delay);
+        };
+      }
 
-    function debounce(callback, delay){
-       let timer;
-        return function(...args){
-            console.log(args, this); // this here points to input tag
-            clearTimeout(timer);
-           timer = setTimeout(() => {
-                callback.apply(this,args)     // or callback(...args)          
-        }, delay);
-        }
-    }
-    
-     function handleChange(event){
-        console.log("event", event);
-      console.log(event.target.value,'=========');
-     }
-     
-     const debounced = debounce(handleChange, 1000)
-    document.getElementById('search').addEventListener("input", debounced);
+      function handleChange(event) {
+        console.log(event.target.value); // api calls
+      }
 
-</script>
-</body>
+      const debounced = debounce(handleChange, 1000); // return a function expression
+      console.log(debounced);
+      document.getElementById("search").addEventListener("input", debounced);
+    </script>
+  </body>
 </html>
