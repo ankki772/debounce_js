@@ -29,7 +29,6 @@
       }
 
       const debounced = debounce(handleChange, 1000); // return a function expression
-      console.log(debounced);
       document.getElementById("search").addEventListener("input", debounced);
     </script>
   </body>
